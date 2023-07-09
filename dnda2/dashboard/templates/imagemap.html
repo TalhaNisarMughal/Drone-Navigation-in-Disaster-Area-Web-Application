@@ -1,0 +1,46 @@
+{% extends "Dashboard.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .imgobj{
+        width: 100%;
+        height: 100vh;
+        overflow: scroll;
+        position: absolute;
+    }
+    .zoomin{
+        position: absolute;
+        margin-left: 1250px;
+        margin-top: 30px;
+    }
+    .zoomin2{
+        position: absolute;
+        margin-left: 1250px;
+        margin-top: 70px;
+    }
+</style>
+<div class="imgobj">
+    <img src="{% static 'img/1.png' %}" alt="nothing to show" id="image">
+</div>
+<button onclick="zoomin()"  class="zoomin btn btn-primary"><i class="fa-solid fa-plus" style="color: #ffffff;"></i></button>
+<button onclick="zoomout()"  class="zoomin2 btn btn-primary"><i class="fa-solid fa-minus" style="color: #ffffff;"></i></button>
+
+<script>
+    function zoomin()
+{
+        var images = document.getElementById("image")
+        let width = images.clientWidth
+        let height = images.clientHeight
+        images.style.width = (width+50)+"px"
+        images.style.height = (height+50)+"px"
+}
+    function zoomout()
+{
+        var images = document.getElementById("image")
+        let width = images.clientWidth
+        let height = images.clientHeight
+        images.style.width = (width-50)+"px"
+        images.style.height = (height-50)+"px"
+}
+</script>
+{% endblock content %}

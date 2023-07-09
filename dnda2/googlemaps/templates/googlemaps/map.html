@@ -1,0 +1,206 @@
+{% extends "Dashboard.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'googlemaps/style.css' %}">
+        <div id="map"></div>
+        <div class="but">
+                <div class="btn btn-primary" onclick="openNav()" id="open"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></div>
+              </div>
+                <div id="mySidenav" class="sidenav">
+                  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <div class="name-logo">
+                D-N-D-A
+              </div>
+<div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Path Planning Parameters settings
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <div class="path_planning">
+          <form action="" method="POST">
+            <!-- {% csrf_token %} -->
+<input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+          <label for="OverLaping"><b>Overlapping Rate</b></label>
+          <select name="OverLaping" id="overlap" class="form-control" oninput="updateArea()">
+            <option value=".10">10%</option>
+            <option value=".20">20%</option>
+            <option value=".30">30%</option>
+            <option value=".40">40%</option>
+            <option value=".50">50%</option>
+            <option value=".60">60%</option>
+            <option value=".70">70%</option>
+            <option value=".80" selected>80%</option>
+            <option value=".90">90%</option>
+          </select>
+        <br>
+        <br>
+        <div>
+        <label for="asra"><b>Aspect Ratio</b></label>
+        <select name="ar" id="asra" class="form-control" oninput="updateArea()">
+          <option value="1:1">1:1</option>
+          <option value="4:3">4:3</option>
+          <option value="16:9" selected>16:9</option>
+        </select>
+        <br>
+        <br>
+        <label for="asra"><b>Method</b> </label>
+          <select name="ar" id="Algo" class="form-control" style="margin-left: -7px;" oninput="updateArea()">
+            <option value="BFS">BFS</option>
+            <option value="DFS" selected>DFS</option>
+          </select>
+          <label for="fa"><b>Flight Altitude (meter)</b></label>
+          <select name="fa" id="flight-altitude" class="form-control" style="margin-left: -7px;" oninput="updateArea()">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50" selected>50</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+            <option value="80">80</option>
+            <option value="90">90</option>
+            <option value="100">100</option>
+            <option value="110">110</option>
+            <option value="120">120</option>
+            <option value="130">130</option>
+            <option value="140">140</option>
+            <option value="150">150</option>
+          </select>
+
+        </div>
+        <div class="form-check form-switch" style="margin-top: 10px;">
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+          <label class="form-check-label" for="flexSwitchCheckChecked">No Flying Zone</label>
+          <p style="margin-left: -43px;
+          margin-top: 10px;
+          text-align: justify;"><b>Note: </b>Pleace first select the area to cover than after enable this option (Algorithm always consider the cordinate of shape as <b>NFZ</b> when this option is ebanble). Also set your parameter before enable <b>NFZ</b> option</p>
+        </div>
+        </form>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        Dron Info / Connection
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <form class="form-control">
+          <br>
+          <input type="text" class="form-control" placeholder="127.0.0.0/Port ">
+          <div class="form-check form-switch" style="margin-top: 10px;">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Live Preview Video</label>
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onchange="live_p()">
+          </div>
+<br>
+          <input type="text" class="form-control" placeholder="127.0.0.0:8080  ">
+<div class="connect">
+  <button type="submit" class="btn btn-primary">Connect</button>
+</div>
+<div class="alert alert-success" role="alert">
+  Connected ......</a>
+</div>
+          <div class="d-data" style="margin-top: 20px;">
+            <div class="battery"> <b>Remaining Power</b> <span style="margin-left: 70px;">70 %</span></div>
+            <div class="Air-Tim2"><b>Air Time (minutes)</b> <span style="margin-left: 60px;">20 </span></div>
+            <div class="Last Update">
+              <b>Last Update</b> <span style="margin-left: 110px;">10 min</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        Upload Video 
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <div class="upload">
+          <form class="form-control" action="{% url 'VideoUpload' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="video-name"><b>Name of area</b></label>
+            <input type="text" name="area-name" id="video" class="form-control" required> 
+            <br>  
+            <input type="file" accept="video/mp4,video/x-m4v,video/*" name="video">
+<br>
+<br>
+            <button type="submit" class="btn btn-primary"> Upload</button>
+<br>
+<br>
+</form>
+{% if success == True %}
+            <div class="alert alert-success" role="alert">
+              Video Uploaded 
+            </div>
+{% elif success == 2  %}
+            <div class="alert alert-danger" role="alert">
+              Video Uploading error 
+            </div>
+{% else %}
+            <div></div>
+{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#upload-form').submit(function(e) {
+    e.preventDefault();
+    var form = $(this);
+    var formData = new FormData(form[0]);
+    $.ajax({
+      url: form.attr('action'),
+      type: form.attr('method'),
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+        $('#success-message').show();
+      }
+    });
+  });
+});
+</script>
+              </div>
+                </div>
+              <footer class="footer ">
+               <div class="tab">
+                 <button class="tablinks" onclick="openCity(event, 'London')">Mapping</button>
+                 <button class="tablinks" onclick="openCity(event, 'Paris')">Detection</button>
+                 <button class="tablinks" onclick="openCity(event, 'Tokyo')">video</button>
+                 <div class="minimiz"><i class="fa-thin fa-square-chevron-down"></i></div>
+               </div>
+               <div id="London" class="tabcontent">
+                 <h3>Mapping</h3>
+                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam libero, sunt quisquam voluptas doloremque cupiditate molestiae nemo id nesciunt? Saepe similique in laudantium cumque eos a dolorem magnam nulla ut.</p>
+               </div>
+               <div id="Paris" class="tabcontent">
+                 <h3>Detection</h3>
+                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium asperiores, eius inventore necessitatibus cumque quasi ipsa, amet blanditiis voluptatibus eligendi fuga nemo atque quo. Eos ipsam earum repudiandae odit delectus.</p> 
+               </div>
+               <div id="Tokyo" class="tabcontent">
+                 <h3>Video</h3>
+                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi alias inventore ullam hic cupiditate vitae quas excepturi nostrum. Doloribus ratione iste ducimus tempore quasi eum deleniti molestias quod rem earum!</p>
+               </div>
+              </footer>
+              {% block videostream %}
+              {% endblock videostream %}
+<script src="{% static 'googlemaps/java.js' %}"></script>
+<script src="{% static 'googlemaps/event.js' %}"></script>
+<script src="{% static 'googlemaps/tabs.js' %}"></script>
+{% endblock content %}

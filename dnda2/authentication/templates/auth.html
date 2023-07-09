@@ -1,0 +1,97 @@
+{% extends "nav.html" %}
+{% block content %}
+<style>
+    .errorlist{
+        color: red;
+        list-style-type: none;
+    }
+</style>
+<form method="POST" novalidate>
+
+{% csrf_token %}
+<div class="row mt-2" style="width: 100%;">
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+    <div class="row ">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6 ">
+            {{form.username.label_tag}}
+            {{form.username}}
+            {{form.username.errors}}
+        </div>
+        
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3 ">
+            {{form.first_name.label_tag}}
+            {{form.first_name}}
+            {{form.first_name.errors}}
+            
+        </div>
+        <div class="col-sm-3">
+            {{form.last_name.label_tag}}
+            {{form.last_name}}
+            {{form.last_name.errors}}
+                    
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                {{form.email.label_tag}}
+                {{form.email}}
+                {{form.email.errors}}
+               
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                {{form.password1.label_tag}}
+                {{form.password1}}
+                {{form.password1.errors}}
+                
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                {{form.password2.label_tag}}
+                {{form.password2}}
+                {{form.password2.errors}}
+                
+       </div>
+       <div class="col-sm-3"></div>
+    </div>
+    <div class="row mt-4">
+       <div class="col-sm-4"></div>
+       <div class="col-sm-4">
+        <input type="submit" value="SignUp" class="btn btn-primary" style="width: 100%;">
+       </div>
+       <div class="col-sm-4"></div>
+    </div>
+</div>
+<div class="col-sm-2"></div>
+</div>
+</form>
+<div class="row mt-1" style="width: 100%;">
+    <div class="col-sm-4"></div>
+    {% if sc == True %}
+        <div class="col-sm-4 mt-5">
+            <div class="alert alert-success" role="alert">
+                Account created ........ ! <a href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+    
+    </div>
+    </div>
+    {% else %}
+            <div></div>
+    {% endif %}
+    <div class="col-sm-4"></div>
+</div>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "googlemaps/map.html" %}
+{% load static %}
+
+{% block videostream %}
+<style>
+   .vs{
+    display: none;
+    
+   }
+    
+</style>
+<div class="vs" id="video-screen">
+
+    <iframe src="http://172.20.164.104:8080/jsfs.html"title="description"  ></iframe>
+</div>
+
+{% endblock videostream %}

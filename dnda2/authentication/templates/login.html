@@ -1,0 +1,79 @@
+{% extends "nav.html" %}
+{% load static %}
+{% block content %}
+<style>
+   .err{
+    color: red;
+   }
+</style>
+<form action="" method="POST" novalidate>
+    {% csrf_token %}
+<div class="row mt-5" style="width: 100%;">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"><img src="{% static 'img/drone.png' %}" alt="img" style="width: 120px; height: 120px;"></div>
+            <div class="col-sm-4"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <h3>D-N-D-A</h3>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                {{form.username.label_tag}}
+                {{form.username}}
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                {{form.password.label_tag}}
+                {{form.password}}
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 mt-2">
+                <input type="submit" value="Login" class="btn btn-primary" style="width: 100%;">
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 mt-2">
+                Don't have Account <a href="{% url 'signup' %}" class="">Signup</a>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 mt-2">
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <p class="err">{{error}}</p>
+                    {% endfor %}
+                    {% endif %}
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+
+
+
+
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+</form>
+{% endblock content %}
