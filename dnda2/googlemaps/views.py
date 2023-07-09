@@ -53,10 +53,7 @@ def VideoUpload(request):
         raw_img_dir      = save_dir
         ftr_detector     = 'sift'
         num_keypoints    = 10000
-        # save_mosaic_dir  = '/media/mosaic/'
-        # save_mosaic_dir = "../media/mosaic"
         save_mosaic_dir = os.path.join(settings.MEDIA_ROOT, 'mosaic/'+area_name)
-        mosaic_base_name = area_name
         flag_save        = True
         #----------------------------------
         input_images = os.listdir(raw_img_dir)
